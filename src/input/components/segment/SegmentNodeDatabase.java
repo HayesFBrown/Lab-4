@@ -8,9 +8,10 @@ package input.components.segment;
 
 import java.util.*;
 
+import input.components.ComponentNode;
 import input.components.point.PointNode;
 
-public class SegmentNodeDatabase {
+public class SegmentNodeDatabase implements ComponentNode {
 
 	
 	private Map<PointNode, Set<PointNode>> _adjLists;
@@ -146,5 +147,11 @@ public class SegmentNodeDatabase {
 			}
 		}
 		return segmentList;
+	}
+
+	@Override
+	public void unparse(StringBuilder sb, int level) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -6,12 +6,13 @@
 
 package input.components.point;
 
+import input.components.ComponentNode;
 import utilities.math.MathUtilities;
 
 /**
  * A 2D Point (x, y).
  */
-public class PointNode implements Comparable
+public class PointNode implements Comparable, ComponentNode
 {
 	protected static final String ANONYMOUS = "__UNNAMED";
 
@@ -82,5 +83,11 @@ public class PointNode implements Comparable
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void unparse(StringBuilder sb, int level) {
+		// TODO Auto-generated method stub
+		
 	}
 }

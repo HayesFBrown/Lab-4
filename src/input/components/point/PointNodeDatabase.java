@@ -8,7 +8,9 @@ package input.components.point;
 
 import java.util.*;
 
-public class PointNodeDatabase {
+import input.components.ComponentNode;
+
+public class PointNodeDatabase implements ComponentNode {
 
 	protected Set<PointNode> _points;
 
@@ -99,5 +101,11 @@ public class PointNodeDatabase {
 	public PointNode getPoint(double x, double y)
 	{
 		return getPoint(new PointNode(x, y));
+	}
+
+	@Override
+	public void unparse(StringBuilder sb, int level) {
+		// TODO Auto-generated method stub
+		
 	}
 }
