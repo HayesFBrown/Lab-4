@@ -37,29 +37,27 @@ public class JSONParser
         // TODO: Build the whole AST, check for return class object, and return the root
 		
 		String description = JSONroot.getString("Description");
-		
 		JSONArray pointsAsJSONArray = JSONroot.getJSONArray("Points");
+		JSONArray segmentsAsJSONArray = JSONroot.getJSONArray("Segments");
 		
 		PointNodeDatabase points = new PointNodeDatabase();
+		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		
 		for(Object point : pointsAsJSONArray)
 		{
-			//points.put(convertToJavaPoint(point));
+			//I had to wrap point to make it work
+			points.put(convertToJavaPoint((JSONObject)point));		
 		}
-		
+				
 		// Repeat for segment nodes
 		
 		// return new FigureNode(description, points, segments);
 		
 	}
 
-	
-	// TODO: convert JSON points into actual points
-	private PointNode convertToJavaPoint() 
+	private PointNode convertToJavaPoint(JSONObject point) 
 	{
-		// get JSON Object "name"
-		// get JSON Object "y"
-		// ....
+		return new PointNode(point.getString("name"), point.getDouble("x"), point.getDouble("y"));
 	}
 
 }
