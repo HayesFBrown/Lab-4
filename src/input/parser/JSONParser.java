@@ -46,10 +46,11 @@ public class JSONParser
 		for(Object point : pointsAsJSONArray)
 		{
 			//I had to wrap point to make it work
-			points.put(convertToJavaPoint((JSONObject)point));		
+			points.put(convertToJavaPoint((JSONObject)point));
 		}
 				
 		// Repeat for segment nodes
+		//I've been working on this for like an hour. I can't figure out how to find the right starting point. maybe use .keySet?
 		
 		// return new FigureNode(description, points, segments);
 		
