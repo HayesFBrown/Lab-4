@@ -9,6 +9,7 @@ package input.components.point;
 import java.util.*;
 
 import input.components.ComponentNode;
+import utilities.io.StringUtilities;
 
 public class PointNodeDatabase implements ComponentNode {
 
@@ -114,7 +115,11 @@ public class PointNodeDatabase implements ComponentNode {
 
 	@Override
 	public void unparse(StringBuilder sb, int level) {
-		// TODO Auto-generated method stub
+		
+		for(PointNode point : _points)
+		{
+			sb.append("/n" + StringUtilities.indent(level) + "Point(" + point.getName() + ")(" + point.getX() + ", " + point.getY() + ")");
+		}
 		
 	}
 }

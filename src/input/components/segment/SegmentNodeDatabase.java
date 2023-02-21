@@ -10,6 +10,7 @@ import java.util.*;
 
 import input.components.ComponentNode;
 import input.components.point.PointNode;
+import utilities.io.StringUtilities;
 
 public class SegmentNodeDatabase implements ComponentNode {
 
@@ -151,7 +152,17 @@ public class SegmentNodeDatabase implements ComponentNode {
 
 	@Override
 	public void unparse(StringBuilder sb, int level) {
-		// TODO Auto-generated method stub
+		
+		//nested loop to get all point combinations
+		for(PointNode dEdge : _adjLists.keySet())
+		{
+			sb.append("/n" + StringUtilities.indent(level) + dEdge.getName() + " : ");
+			
+			for(PointNode uEdge : _adjLists.get(dEdge))
+			{
+				sb.append(uEdge.getName() + " ");
+			}
+		}
 		
 	}
 }

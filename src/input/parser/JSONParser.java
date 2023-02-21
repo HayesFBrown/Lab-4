@@ -72,7 +72,7 @@ public class JSONParser
 		
 		for(int i = 0; i < nodes.length(); i++)
 		{
-			allNodes.add(points.getPoint(key));
+			allNodes.add(points.getPoint(nodes.getString(i)));
 		}
 		
 		return allNodes;
