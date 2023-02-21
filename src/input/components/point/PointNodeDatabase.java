@@ -102,6 +102,15 @@ public class PointNodeDatabase implements ComponentNode {
 	{
 		return getPoint(new PointNode(x, y));
 	}
+	
+	public PointNode getPoint(String name)
+	{
+		for(PointNode point : _points)
+		{
+			if(point._name.equals(name)) return point;
+		}
+		return null;
+	}
 
 	@Override
 	public void unparse(StringBuilder sb, int level) {

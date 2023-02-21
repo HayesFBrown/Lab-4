@@ -48,17 +48,34 @@ public class JSONParser
 			//I had to wrap point to make it work
 			points.put(convertToJavaPoint((JSONObject)point));
 		}
-				
-		// Repeat for segment nodes
-		//I've been working on this for like an hour. I can't figure out how to find the right starting point. maybe use .keySet?
 		
-		// return new FigureNode(description, points, segments);
+		for(int i = 0; i < segmentsAsJSONArray.length(); i++)
+		{
+			String keyName = segmentsAsJSONArray.getJSONObject(i).keys().next();
+			
+			segments.addAdjacencyList(points.getPoint(keyName), connectedNodes(segmentsAsJSONArray.getJSONArray(i), points, keyName));
+		}
+
+		
+		return new FigureNode(description, points, segments);
 		
 	}
 
 	private PointNode convertToJavaPoint(JSONObject point) 
 	{
 		return new PointNode(point.getString("name"), point.getDouble("x"), point.getDouble("y"));
+	}
+	
+	private List<PointNode> connectedNodes(JSONArray nodes, PointNodeDatabase points, String key)
+	{
+		List<PointNode> allNodes = new ArrayList<PointNode>();
+		
+		for(int i = 0; i < nodes.length(); i++)
+		{
+			allNodes.add(points.getPoint(key));
+		}
+		
+		return allNodes;
 	}
 
 }
