@@ -36,9 +36,11 @@ public class JSONParser
 
         // TODO: Build the whole AST, check for return class object, and return the root
 		
-		String description = JSONroot.getString("Description");
-		JSONArray pointsAsJSONArray = JSONroot.getJSONArray("Points");
-		JSONArray segmentsAsJSONArray = JSONroot.getJSONArray("Segments");
+		JSONObject figure = JSONroot.getJSONObject("Figure");
+		
+		String description = figure.getString("Description");
+		JSONArray pointsAsJSONArray = figure.getJSONArray("Points");
+		JSONArray segmentsAsJSONArray = figure.getJSONArray("Segments");
 		
 		PointNodeDatabase points = new PointNodeDatabase();
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
@@ -49,12 +51,12 @@ public class JSONParser
 			points.put(convertToJavaPoint((JSONObject)point));
 		}
 		
-		for(int i = 0; i < segmentsAsJSONArray.length(); i++)
-		{
-			String keyName = segmentsAsJSONArray.getJSONObject(i).keys().next();
-			
-			segments.addAdjacencyList(points.getPoint(keyName), connectedNodes(segmentsAsJSONArray.getJSONArray(i), points, keyName));
-		}
+//		for(int i = 0; i < segmentsAsJSONArray.length(); i++)
+//		{
+//			String keyName = segmentsAsJSONArray.getJSONObject(i).keys().next();
+//			
+//			segments.addAdjacencyList(points.getPoint(keyName), connectedNodes(segmentsAsJSONArray.getJSONArray(i), points, keyName));
+//		}
 
 		
 		return new FigureNode(description, points, segments);
