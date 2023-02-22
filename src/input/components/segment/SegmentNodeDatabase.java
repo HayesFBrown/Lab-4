@@ -156,7 +156,7 @@ public class SegmentNodeDatabase implements ComponentNode {
 		//nested loop to get all point combinations
 		for(PointNode dEdge : _adjLists.keySet())
 		{
-			sb.append("/n" + StringUtilities.indent(level) + dEdge.getName() + " : ");
+			sb.append("\n" + StringUtilities.indent(level) + dEdge.getName() + " : ");
 			
 			for(PointNode uEdge : _adjLists.get(dEdge))
 			{

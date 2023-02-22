@@ -33,27 +33,27 @@ public class FigureNode implements ComponentNode
 	@Override
 	public void unparse(StringBuilder sb, int level)
 	{
-		sb.append("Figure" + "/n" + StringUtilities.indent(level) + "{");
+		sb.append("Figure" + "\n" + StringUtilities.indent(level) + "{");
 		
 		level++;
 		
-		sb.append("/n" + StringUtilities.indent(level) + "Description : " + getDescription());
+		sb.append("\n" + StringUtilities.indent(level) + "Description : " + getDescription());
 		
-		sb.append("/n" + StringUtilities.indent(level) + "Points:" + "/n" + StringUtilities.indent(level) + "{");
+		sb.append("\n" + StringUtilities.indent(level) + "Points:" + "\n" + StringUtilities.indent(level) + "{");
 		
 		_points.unparse(sb, level + 1);
 		
-		sb.append("/n" + StringUtilities.indent(level) + "}");
+		sb.append("\n" + StringUtilities.indent(level) + "}");
 		
-		sb.append("/n" + StringUtilities.indent(level) + "Segments: " + "/n" + StringUtilities.indent(level) + "{");
+		sb.append("\n" + StringUtilities.indent(level) + "Segments: " + "\n" + StringUtilities.indent(level) + "{");
 		
 		_segments.unparse(sb, level + 1);
 		
-		sb.append("/n" + StringUtilities.indent(level) + "}");
+		sb.append("\n" + StringUtilities.indent(level) + "}");
 		
 		level--;
 		
-		sb.append("/n" + StringUtilities.indent(level) + "}");
+		sb.append("\n" + StringUtilities.indent(level) + "}");
 	}
 	
 	
