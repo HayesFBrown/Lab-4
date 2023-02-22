@@ -51,12 +51,14 @@ public class JSONParser
 			points.put(convertToJavaPoint((JSONObject)point));
 		}
 		
-//		for(int i = 0; i < segmentsAsJSONArray.length(); i++)
-//		{
-//			String keyName = segmentsAsJSONArray.getJSONObject(i).keys().next();
-//			
-//			segments.addAdjacencyList(points.getPoint(keyName), connectedNodes(segmentsAsJSONArray.getJSONArray(i), points, keyName));
-//		}
+		for(int i = 0; i < segmentsAsJSONArray.length(); i++)
+		{
+			String keyName = segmentsAsJSONArray.getJSONObject(i).keys().next();
+			
+			segments.addAdjacencyList(points.getPoint(keyName), connectedNodes(segmentsAsJSONArray.getJSONObject(i), points, keyName));
+			
+			connectedNodes(segmentsAsJSONArray.getJSONObject(i), points, keyName);
+		}
 
 		
 		return new FigureNode(description, points, segments);
@@ -68,13 +70,13 @@ public class JSONParser
 		return new PointNode(point.getString("name"), point.getDouble("x"), point.getDouble("y"));
 	}
 	
-	private List<PointNode> connectedNodes(JSONArray nodes, PointNodeDatabase points, String key)
+	private List<PointNode> connectedNodes(JSONObject nodes, PointNodeDatabase points, String key)
 	{
 		List<PointNode> allNodes = new ArrayList<PointNode>();
 		
 		for(int i = 0; i < nodes.length(); i++)
 		{
-			allNodes.add(points.getPoint(nodes.getString(i)));
+			allNodes.add(points.getPoint(nodes.getJSONArray(key).getString(i)));
 		}
 		
 		return allNodes;
