@@ -39,13 +39,13 @@ public class FigureNode implements ComponentNode
 		
 		sb.append("\n" + StringUtilities.indent(level) + "Description : " + getDescription());
 		
-		sb.append("\n" + StringUtilities.indent(level) + "Points:" + "\n" + StringUtilities.indent(level) + "{");
+		sb.append("\n" + StringUtilities.indent(level) + "Points: \n" + StringUtilities.indent(level) + "{");
 		
 		_points.unparse(sb, level + 1);
 		
 		sb.append("\n" + StringUtilities.indent(level) + "}");
 		
-		sb.append("\n" + StringUtilities.indent(level) + "Segments: " + "\n" + StringUtilities.indent(level) + "{");
+		sb.append("\n" + StringUtilities.indent(level) + "Segments: \n" + StringUtilities.indent(level) + "{");
 		
 		_segments.unparse(sb, level + 1);
 		
