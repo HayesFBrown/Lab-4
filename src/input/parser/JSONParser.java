@@ -34,12 +34,23 @@ public class JSONParser
 		JSONTokener tokenizer = new JSONTokener(str);
 		JSONObject  JSONroot = (JSONObject)tokenizer.nextValue();
 		
-		JSONObject figure = JSONroot.getJSONObject("Figure");
+		JSONObject figure = new JSONObject();
 		
-		String description = figure.getString("Description");
-		JSONArray pointsAsJSONArray = figure.getJSONArray("Points");
-		JSONArray segmentsAsJSONArray = figure.getJSONArray("Segments");
-	
+		String description = "";
+		JSONArray pointsAsJSONArray = new JSONArray();
+		JSONArray segmentsAsJSONArray = new JSONArray();
+		
+		try {
+		figure = JSONroot.getJSONObject("Figure");
+		
+		description = figure.getString("Description");
+		pointsAsJSONArray = figure.getJSONArray("Points");
+		segmentsAsJSONArray = figure.getJSONArray("Segments");
+		}
+		catch(JSONException e)
+		{
+			error("Does not contain necessary components");
+		}
 		
 		PointNodeDatabase points = new PointNodeDatabase();
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();

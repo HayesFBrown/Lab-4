@@ -26,7 +26,7 @@ class JSONParserTest
 	{
 		JSONParser parser = new JSONParser();
 
-	//	assertThrows(ParseException.class, () -> { parser.parse("{}"); });
+		assertThrows(ParseException.class, () -> { parser.parse("{}"); });
 	}
 
 	@Test
