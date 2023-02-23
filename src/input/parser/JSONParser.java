@@ -62,12 +62,23 @@ public class JSONParser
 		PointNodeDatabase points = new PointNodeDatabase();
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		
+		addPoints(points, pointsAsJSONArray);
+		addSegments(segments,points, segmentsAsJSONArray);
+		
+		return new FigureNode(description, points, segments);
+	}
+	
+	private void addPoints(PointNodeDatabase points, JSONArray pointsAsJSONArray)
+	{
 		for(Object point : pointsAsJSONArray)
 		{
 			//I had to wrap point to make it work
 			points.put(convertToJavaPoint((JSONObject)point));
 		}
-		
+	}
+	
+	private void addSegments(SegmentNodeDatabase segments, PointNodeDatabase points, JSONArray segmentsAsJSONArray)
+	{
 		for(int i = 0; i < segmentsAsJSONArray.length(); i++)
 		{
 			String keyName = segmentsAsJSONArray.getJSONObject(i).keys().next();
@@ -76,10 +87,6 @@ public class JSONParser
 			
 			connectedNodes(segmentsAsJSONArray.getJSONObject(i), points, keyName);
 		}
-
-		
-		return new FigureNode(description, points, segments);
-		
 	}
 
 	private PointNode convertToJavaPoint(JSONObject point) 
