@@ -85,7 +85,7 @@ public class PointNodeDatabase implements ComponentNode {
 	}
 
 	/**
-	 * Gets the point associated with a point or coordinate
+	 * Gets the point associated with a point, coordinate, or name
 	 * 
 	 * @param a point or a coordinate
 	 * @return the point if it is in the database
@@ -113,6 +113,11 @@ public class PointNodeDatabase implements ComponentNode {
 		return null;
 	}
 
+	/**
+	 * converts data from a PointNodeDatabase into String
+	 * @param sb -- StringBuilder where the String data is stored
+	 * @param level -- the level of indentation used
+	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {
 		

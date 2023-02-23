@@ -150,6 +150,11 @@ public class SegmentNodeDatabase implements ComponentNode {
 		return segmentList;
 	}
 
+	/**
+	 * converts data from a SegmentNodeDatabase into String
+	 * @param sb -- StringBuilder that String data is added to
+	 * @param level -- the level of indentation used
+	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {
 		
