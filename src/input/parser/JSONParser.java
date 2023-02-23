@@ -33,14 +33,13 @@ public class JSONParser
 		// Parsing is accomplished via the JSONTokenizer class. 
 		JSONTokener tokenizer = new JSONTokener(str);
 		JSONObject  JSONroot = (JSONObject)tokenizer.nextValue();
-
-        // TODO: Build the whole AST, check for return class object, and return the root
 		
 		JSONObject figure = JSONroot.getJSONObject("Figure");
 		
 		String description = figure.getString("Description");
 		JSONArray pointsAsJSONArray = figure.getJSONArray("Points");
 		JSONArray segmentsAsJSONArray = figure.getJSONArray("Segments");
+	
 		
 		PointNodeDatabase points = new PointNodeDatabase();
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
@@ -74,9 +73,11 @@ public class JSONParser
 	{
 		List<PointNode> allNodes = new ArrayList<PointNode>();
 		
-		for(int i = 0; i < nodes.length(); i++)
+		JSONArray connectedNodes = nodes.getJSONArray(key);
+		
+		for(int i = 0; i < connectedNodes.length(); i++)
 		{
-			allNodes.add(points.getPoint(nodes.getJSONArray(key).getString(i)));
+			allNodes.add(points.getPoint(connectedNodes.getString(i)));
 		}
 		
 		return allNodes;
