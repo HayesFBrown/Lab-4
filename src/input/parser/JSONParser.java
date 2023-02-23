@@ -1,3 +1,10 @@
+//TODO list
+//copy and paste test, do it with other files
+//test exceptions when does not contain description, points, segments
+//look for other places to throw exceptions
+//add comments
+//reformat parse into more methods
+
 package input.parser;
 
 import java.util.ArrayList;
