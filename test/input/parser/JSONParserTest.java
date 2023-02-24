@@ -38,7 +38,7 @@ class JSONParserTest
 		
 		StringBuilder sb = new StringBuilder();
 		node.unparse(sb, 0);
-		System.out.println(sb.toString());
+		System.out.println(sb);
 	}
 	
 	@Test

@@ -1,8 +1,3 @@
-//TODO list
-//look for other places to throw exceptions
-//add comments
-	// I added some more comments - Caden
-
 package input.parser;
 
 import java.util.ArrayList;
@@ -19,6 +14,17 @@ import input.components.point.PointNodeDatabase;
 import input.components.segment.SegmentNodeDatabase;
 import input.exception.ParseException;
 
+/**
+* The JSONParser class provides functionality for parsing JSON 
+* representations of geometry figures and constructing the representations with
+* String descriptions, PointNodeDatabases and SegmentaNodeDatabases
+*
+* <p>Bugs: None
+*
+* @author Sean Rowland, Caden Parry, Hayes Brown
+* @date 02/23/2023
+*/
+
 public class JSONParser
 {
 	protected ComponentNode  _astRoot;
@@ -28,57 +34,64 @@ public class JSONParser
 		_astRoot = null;
 	}
 
+	/**
+	 * Throw a ParseException with a given error message.
+	*/
 	private void error(String message)
 	{
 		throw new ParseException("Parse error: " + message);
 	}
 
+	/**
+	 * Parse a String containing a JSON representation of a geometry figures and 
+	 * construct those figures using PointNodeDatabases and SegmentNodeDatabases
+	*/
 	public ComponentNode parse(String str) throws ParseException
 	{
 		// Parsing is accomplished via the JSONTokenizer class. 
 		JSONTokener tokenizer = new JSONTokener(str);
 		JSONObject  JSONroot = (JSONObject)tokenizer.nextValue();
 		
-		//initializes vars that will store data from JSON file
-		JSONObject figure = new JSONObject();
+		// Initializes variables that will store data from JSON file
 		String description = "";
-		JSONArray pointsAsJSONArray = new JSONArray();
-		JSONArray segmentsAsJSONArray = new JSONArray();
+		PointNodeDatabase points = new PointNodeDatabase();
+		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		
-		//stores information from the JSON file
-		try {
-		figure = JSONroot.getJSONObject("Figure");
-		
-		description = figure.getString("Description");
-		pointsAsJSONArray = figure.getJSONArray("Points");
-		segmentsAsJSONArray = figure.getJSONArray("Segments");
+		// Stores information from the JSON file
+		try 
+		{
+			JSONObject figure = JSONroot.getJSONObject("Figure");
+			
+			description = figure.getString("Description");
+			points = convertToPoints(figure.getJSONArray("Points"));
+			segments = convertToSegments(points, figure.getJSONArray("Segments"));
 		}
-		//if the file doesn't contain a necessary element, an error is thrown
+		// If the file doesn't contain a necessary component then throw an exception
 		catch(JSONException e)
 		{
 			error("Does not contain necessary components");
 		}
 		
-		//initializes structures that will store the converted data from the JSON file
-		PointNodeDatabase points = new PointNodeDatabase();
-		SegmentNodeDatabase segments = new SegmentNodeDatabase();
-		
-		//converts the JSON file into useable data
-		addPoints(points, pointsAsJSONArray);
-		addSegments(segments,points, segmentsAsJSONArray);
-		
 		return new FigureNode(description, points, segments);
 	}
 	
-	private void addPoints(PointNodeDatabase points, JSONArray pointsAsJSONArray)
+	/**
+	 * Take in a JSONArray representing points and return a PointNodeDatabase containing those points.
+	*/
+	private PointNodeDatabase convertToPoints(JSONArray pointsAsJSONArray)
 	{
-		//populates a PointNodeDatabase with points taken from the given JSONArray
+		PointNodeDatabase points = new PointNodeDatabase();
+		
+		// Populates a PointNodeDatabase with points taken from the given JSONArray
 		for(Object point : pointsAsJSONArray)
-			points.put(convertToJavaPoint((JSONObject)point));
+			points.put(convertToPoint((JSONObject)point));
+		
+		return points;
 	}
 	
-	private void addSegments(SegmentNodeDatabase segments, PointNodeDatabase points, JSONArray segmentsAsJSONArray)
+	private SegmentNodeDatabase convertToSegments(PointNodeDatabase points, JSONArray segmentsAsJSONArray)
 	{
+		SegmentNodeDatabase segments = new SegmentNodeDatabase();
 		for(int i = 0; i < segmentsAsJSONArray.length(); i++)
 		{
 			//gets the key from each object in the array
@@ -87,9 +100,11 @@ public class JSONParser
 			//adds segments going out from the key
 			segments.addAdjacencyList(points.getPoint(keyName), connectedNodes(segmentsAsJSONArray.getJSONObject(i), points, keyName));
 		}
+		
+		return segments;
 	}
 
-	private PointNode convertToJavaPoint(JSONObject point) 
+	private PointNode convertToPoint(JSONObject point) 
 	{
 		//converts JSON data to a PointNode
 		return new PointNode(point.getString("name"), point.getDouble("x"), point.getDouble("y"));
