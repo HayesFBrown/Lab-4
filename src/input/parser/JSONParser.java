@@ -36,7 +36,8 @@ public class JSONParser
 
 	/**
 	 * Throw a ParseException with a given error message.
-	*/
+	 * @param message -- String message is printed when there is an error
+	 */
 	private void error(String message)
 	{
 		throw new ParseException("Parse error: " + message);
@@ -44,7 +45,9 @@ public class JSONParser
 
 	/**
 	 * Parse a String containing a JSON representation of a geometry figures and 
-	 * construct those figures using PointNodeDatabases and SegmentNodeDatabases
+	   construct those figures using PointNodeDatabases and SegmentNodeDatabases
+	 * @param str -- String is parsed into useful data
+	 * @return ComponentNode -- where the data from str is stored
 	*/
 	public ComponentNode parse(String str) throws ParseException
 	{
@@ -77,6 +80,8 @@ public class JSONParser
 	
 	/**
 	 * Take in a JSONArray representing points and return a PointNodeDatabase containing those points.
+	 * @param pointsAsJSONArray -- the points contained in the JSON file
+	 * @return PointNodeDatabase -- the given points are converted into a PointNodeDatabase
 	*/
 	private PointNodeDatabase convertToPoints(JSONArray pointsAsJSONArray)
 	{
@@ -89,6 +94,12 @@ public class JSONParser
 		return points;
 	}
 	
+	/**
+	 * Take in a JSONArray representing segments and return a SegmentNodeDatabase containing those points.
+	 * @param points -- PointNodeDatabase contains points used to construct segments
+	 * @param segmentsAsJSONArray -- the segments contained in the JSON file
+	 * @return segmentNodeDatabase -- the given segments are converted into a SegmentNodeDatabase
+	*/
 	private SegmentNodeDatabase convertToSegments(PointNodeDatabase points, JSONArray segmentsAsJSONArray)
 	{
 		SegmentNodeDatabase segments = new SegmentNodeDatabase();
@@ -104,12 +115,24 @@ public class JSONParser
 		return segments;
 	}
 
+	/**
+	 * takes a given JSONObject and converts it into a PointNode
+	 * @param point -- JSONObject that is converted
+	 * @return PointNode -- the information from the JSONObject is converted into a PointNode
+	 */
 	private PointNode convertToPoint(JSONObject point) 
 	{
 		//converts JSON data to a PointNode
 		return new PointNode(point.getString("name"), point.getDouble("x"), point.getDouble("y"));
 	}
 	
+	/**
+	 * takes a JSONObject and returns a list of points that the key is connected to
+	 * @param nodes -- JSONObject containing a list of points as its value
+	 * @param points -- PointNodeDatabase containing possible points contained in nodes
+	 * @param key -- String is the key of nodes
+	 * @return List<PointNode> -- returns a list of points that a given key is connected to
+	 */
 	private List<PointNode> connectedNodes(JSONObject nodes, PointNodeDatabase points, String key)
 	{
 		List<PointNode> allNodes = new ArrayList<PointNode>();
