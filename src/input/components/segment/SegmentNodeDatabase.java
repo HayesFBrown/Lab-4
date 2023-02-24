@@ -157,14 +157,20 @@ public class SegmentNodeDatabase implements ComponentNode {
 	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {
+		// Sample output
+		// A : B C 
+		// B : A C 
+        // C : A B 
 		
 		//nested loop to get all point combinations
 		for(PointNode dEdge : _adjLists.keySet())
 		{
+			// adds name to the sb, wont be printed with the nested loop
 			sb.append("\n" + StringUtilities.indent(level) + dEdge.getName() + " : ");
 			
 			for(PointNode uEdge : _adjLists.get(dEdge))
 			{
+				//append each undirected edge for a given dEdge
 				sb.append(uEdge.getName() + " ");
 			}
 		}

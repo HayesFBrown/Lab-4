@@ -120,6 +120,10 @@ public class PointNodeDatabase implements ComponentNode {
 	 */
 	@Override
 	public void unparse(StringBuilder sb, int level) {
+		// Sample output: 
+		// Point(A)(0.0, 0.0)
+		// Point(B)(1.0, 1.0)
+		// Point(C)(1.0, 0.0)
 		
 		for(PointNode point : _points)
 		{

@@ -33,24 +33,40 @@ public class FigureNode implements ComponentNode
 	@Override
 	public void unparse(StringBuilder sb, int level)
 	{
+		// Sample output: 
+		// Figure
+		// {
+		// Description: _____________
+		// Points
+				// {
+					// method call
+				// }
+		// Segments:
+				//{
+					// method call
+				// }
+		// }
+
 		sb.append("Figure" + "\n" + StringUtilities.indent(level) + "{");
 		
+		//increment level for proper indentation when methods are called
 		level++;
 		
 		sb.append("\n" + StringUtilities.indent(level) + "Description : " + getDescription());
-		
 		sb.append("\n" + StringUtilities.indent(level) + "Points: \n" + StringUtilities.indent(level) + "{");
 		
+		//method call to add points to the sb
 		_points.unparse(sb, level + 1);
 		
 		sb.append("\n" + StringUtilities.indent(level) + "}");
-		
 		sb.append("\n" + StringUtilities.indent(level) + "Segments: \n" + StringUtilities.indent(level) + "{");
 		
+		//method call to add segments to the sb
 		_segments.unparse(sb, level + 1);
 		
 		sb.append("\n" + StringUtilities.indent(level) + "}");
 		
+		//decrement level for proper indentation when methods are called
 		level--;
 		
 		sb.append("\n" + StringUtilities.indent(level) + "}");
